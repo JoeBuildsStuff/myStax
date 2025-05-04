@@ -1,0 +1,117 @@
+---
+title: Lucide React
+description: How to install and use the Lucide icon library in React projects using pnpm.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+More info on installing Lucide React can be found [here](https://lucide.dev/guide/).
+
+For full list of icons, see [here](https://lucide.dev/icons/).
+
+## TLDR
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm install lucide-react`,
+  }} />
+
+<Steps>
+<Step>
+## 1. Installation
+
+Install `lucide-react` using your preferred package manager.
+
+<CodeTabs lang="bash" codes={{
+    pnpm: `pnpm install lucide-react`,
+    yarn: `yarn add lucide-react`,
+    npm: `npm install lucide-react`,
+    bun: `bun add lucide-react`,
+  }} />
+
+*Note: For React Native applications, use the `lucide-react-native` package instead.*
+</Step>
+
+<Step>
+## 2. Basic Usage
+
+Lucide icons are tree-shakable. Import only the icons you need as React components. They render as inline SVG elements.
+
+<CodeTabs lang="tsx" codes={{
+    'Basic Usage': `import { Camera } from 'lucide-react';
+
+const MyIconComponent = () => {
+  // Use the imported icon component
+  return <Camera />;
+};
+
+export default MyIconComponent;`
+  }} />
+</Step>
+
+<Step>
+## 3. Customization with Props
+
+You can customize icons by passing props. Common props include:
+
+<TypeTable
+  type={{
+    size: {
+      description: 'The size of the icon in pixels.',
+      type: 'number',
+      default: 24,
+    },
+    color: {
+      description: 'The color of the icon stroke.',
+      type: 'string',
+      default: 'currentColor',
+    },
+    strokeWidth: {
+      description: 'The width of the icon stroke.',
+      type: 'number',
+      default: 2,
+    },
+    absoluteStrokeWidth: {
+      description:
+        'Whether to prevent the stroke width from scaling with the icon size.',
+      type: 'boolean',
+      default: 'false',
+    },
+  }}
+/>
+
+<CodeTabs lang="tsx" codes={{
+    'Props': `import { Camera } from 'lucide-react';
+
+const MyCustomIcon = () => {
+  // Example: Red camera icon with size 48 and specific stroke width
+  return <Camera color="red" size={48} strokeWidth={1.5} />;
+};
+
+export default MyCustomIcon;`
+  }} />
+
+
+All standard SVG presentation attributes (like `fill`, `stroke`, etc.) are also accepted.
+
+</Step>
+
+<Step>
+## 4. Using Lucide Lab or Custom Icons
+
+For icons not in the main library (e.g., from `@lucide/lab`) or custom SVG nodes, use the generic `Icon` component and pass the `iconNode` prop.
+
+<CodeTabs lang="tsx" codes={{
+    'Custom': `import { Icon } from 'lucide-react';
+// Make sure to install @lucide/lab if you haven\'t: pnpm install @lucide/lab
+import { coconut } from '@lucide/lab';
+
+const LabIconComponent = () => {
+  return <Icon iconNode={coconut} size={40} />;
+};
+
+export default LabIconComponent;`
+  }} />
+</Step>
+</Steps>

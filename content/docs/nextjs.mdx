@@ -1,0 +1,126 @@
+---
+title: Next.js
+description: My Standard process for initializing a new Next.js project using pnpm.
+---
+
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
+
+More info on Next.js can be found [here](https://nextjs.org/docs).
+
+## TLDR
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm create next-app --ts --eslint --tailwind --src-dir --app --use-pnpm`,
+  }} />
+
+
+
+<Steps>
+<Step>
+## 1. Prerequisites
+
+Ensure you have Node.js and `pnpm` installed on your system. You can check their versions using:
+
+<CodeTabs lang="bash" codes={{
+    bash: ` node -v \n pnpm -v`
+  }} />
+
+If `pnpm` is not installed, you can install it globally via `npm`:
+
+<CodeTabs lang="bash" codes={{
+    bash: `npm install -g pnpm`
+  }} />
+</Step>
+
+<Step>
+## 2. Create the Next.js App
+
+Use `pnpm` with `create-next-app` to initialize the project. The `@latest` tag ensures you're using the most recent version.
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm dlx create-next-app@latest`
+  }} />
+
+You will be prompted to configure the project. Here are the recommended settings based on a typical setup:
+
+```text
+✔ What is your project named? … my-project-name
+✔ Would you like to use TypeScript? … Yes
+✔ Would you like to use ESLint? … Yes
+✔ Would you like to use Tailwind CSS? … Yes
+✔ Would you like your code inside a `src/` directory? … Yes
+✔ Would you like to use App Router? (recommended) … Yes
+✔ Would you like to use Turbopack for `next dev`? … Yes
+✔ Would you like to customize the import alias (`@/*` by default)? … No
+```
+
+The installer will then create the project directory, set up the basic structure, install dependencies (`react`, `react-dom`, `next`), and development dependencies (`typescript`, `@types/*`, `tailwindcss`, `eslint`, etc.).
+
+It will also initialize a Git repository and potentially add a `packageManager` field to your `package.json` if it's missing.
+</Step>
+
+<Step>
+## 3. Navigate and Run the Development Server
+
+Change into your new project directory and start the development server:
+
+<CodeTabs lang="bash" codes={{
+    bash: ` cd my-project-name # Replace with your actual project name \n pnpm dev`
+  }} />
+
+Next.js will start the development server, usually on `http://localhost:3000`. If that port is busy, it will automatically find an available port (e.g., `http://localhost:3001`).
+
+```text
+   ▲ Next.js 15.3.1 # Version may vary
+   - Local:        http://localhost:3000
+   - Network:      http://<your-local-ip>:3000 # IP may vary
+
+ ✓ Starting...
+ ✓ Ready in <time>ms
+ ○ Compiling / ...
+ ✓ Compiled / in <time>s (<modules> modules)
+```
+</Step>
+
+<Step>
+## 4. Basic Project Structure (with `src/` directory)
+
+Your initial project structure will look similar to this:
+
+```
+my-project-name/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx       # Main page component
+│   │   └── layout.tsx     # Root layout
+│   └── globals.css        # Global styles (often imported in layout)
+├── public/                # Static assets
+├── next.config.mjs        # Next.js configuration (or .js)
+├── tailwind.config.ts     # Tailwind configuration
+├── tsconfig.json          # TypeScript configuration
+├── package.json           # Project dependencies and scripts
+├── pnpm-lock.yaml         # pnpm lockfile
+└── .gitignore
+```
+</Step>
+
+<Step>
+## 5. Start Building
+
+You can now start editing your application, beginning with `src/app/page.tsx`. For example:
+
+<CodeTabs lang="tsx" codes={{
+    'src/app/page.tsx': `export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1 className="text-4xl font-bold">Hello Next.js with pnpm!</h1>
+    </main>
+  );
+}`
+  }} />
+
+Save the file, and the browser should automatically update to reflect the changes.
+</Step>
+</Steps>

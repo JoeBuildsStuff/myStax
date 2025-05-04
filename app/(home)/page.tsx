@@ -1,9 +1,14 @@
+import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
 import Link from 'next/link';
 
 export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col justify-center text-center">
-      <h1 className="mb-4 text-2xl font-bold">Hello World</h1>
+      <div className="max-w-2xl mx-auto">
+<CodeTabs lang="bash" codes={{
+    pnpm: `pnpm create next-app --ts --eslint --tailwind --src-dir --app --use-pnpm`,
+  }} />
+</div>
       <p className="text-fd-muted-foreground">
         You can open{' '}
         <Link
