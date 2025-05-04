@@ -1,3 +1,14 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+/* Modify the nav bar */
+#nd-nav {
+    border-bottom: none !important; /* Removes the bottom border */
+    border: none !important; /* Removes any other borders (like the rounded one on lg screens) */
+    box-shadow: none !important; /* Removes the shadow */
+  
+    /* Optional: If you also want to remove the semi-transparent background and blur */
+    /* background-color: transparent !important; */
+    /* backdrop-filter: none !important; */
+  }
