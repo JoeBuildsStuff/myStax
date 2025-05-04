@@ -3,7 +3,9 @@
   "icon": "MonitorSmartphone",
   "pages": [
     "nextjs",
-    "lucide-react",
+    "shadcn",
+    "lucide",
+    "motion",
     "..."
   ],
   "defaultOpen": true

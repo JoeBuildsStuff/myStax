@@ -1,0 +1,217 @@
+---
+title: Motion
+description: Guide to installing and using the Motion animation library in React/Next.js projects using pnpm.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+More info on Motion can be found [here](https://motion.dev/docs/react-quick-start).
+
+
+## TLDR
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm add motion`,
+  }} />
+
+<Steps>
+<Step>
+## 1. Installation
+
+Install `motion` using your preferred package manager.
+
+<CodeTabs lang="bash" codes={{
+    pnpm: `pnpm add motion`,
+    yarn: `yarn add motion`,
+    npm: `npm install motion`,
+    bun: `bun add motion`,
+  }} />
+
+</Step>
+
+<Step>
+## 2. Basic Usage
+
+Import the `motion` component from `motion/react`. You can then prefix any HTML or SVG element with `motion.` to make it animatable.
+
+<CodeTabs lang="tsx" codes={{
+    'Basic Motion Component': `import { motion } from 'motion/react';
+
+const MyAnimatedComponent = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }} // Starting state
+      animate={{ opacity: 1, scale: 1 }}   // Ending state
+      transition={{ duration: 0.5 }}      // Animation duration
+      className="w-20 h-20 bg-blue-500 rounded"
+    />
+  );
+};
+
+export default MyAnimatedComponent;`
+  }} />
+</Step>
+
+<Step>
+## 3. Animation Props
+
+Framer Motion provides several props to control animations:
+
+<TypeTable
+  type={{
+    initial: {
+      description: 'Defines the state of the component before it mounts or when an animation starts.',
+      type: 'object | string (variant name)',
+    },
+    animate: {
+      description: 'Defines the state the component should animate to when it mounts or when state changes.',
+      type: 'object | string (variant name)',
+    },
+    exit: {
+      description: 'Defines the state the component should animate to when it unmounts (requires `AnimatePresence`).',
+      type: 'object | string (variant name)',
+    },
+    transition: {
+      description: 'Configures the transition behavior (duration, ease, delay, type).',
+      type: 'object',
+    },
+    variants: {
+      description: 'Pre-defined animation states that can be referenced by name in `initial`, `animate`, and `exit`.',
+      type: 'object',
+    },
+  }}
+/>
+
+<CodeTabs lang="tsx" codes={{
+    'Animation Props Example': `import { motion } from 'motion/react';
+
+const AdvancedAnimation = () => {
+  return (
+    <motion.button
+      initial={{ x: -100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 120, damping: 10, delay: 0.2 }}
+      className="px-4 py-2 bg-green-500 text-white rounded"
+    >
+      Animate Me
+    </motion.button>
+  );
+};
+
+export default AdvancedAnimation;`
+  }} />
+</Step>
+
+<Step>
+## 4. Variants
+
+Variants allow you to define reusable animation states and orchestrate animations between parent and child components.
+
+<CodeTabs lang="tsx" codes={{
+    'Variants Example': `import { motion } from 'motion/react';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, // Delay between child animations
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
+const ListComponent = () => {
+  return (
+    <motion.ul
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="list-disc pl-5 space-y-2"
+    >
+      {['Item 1', 'Item 2', 'Item 3'].map((item) => (
+        <motion.li key={item} variants={itemVariants}>
+          {item}
+        </motion.li>
+      ))}
+    </motion.ul>
+  );
+};
+
+export default ListComponent;`
+  }} />
+</Step>
+
+<Step>
+## 5. Gesture Animations
+
+Framer Motion makes it easy to add animations triggered by user interactions like hover, tap, drag, or focus.
+
+<CodeTabs lang="tsx" codes={{
+    'Gesture Example': `import { motion } from 'motion/react';
+
+const InteractiveButton = () => {
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1, rotate: 5 }} // Animate on hover
+      whileTap={{ scale: 0.9, rotate: -5 }}   // Animate on tap/click
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      className="px-6 py-3 bg-purple-600 text-white rounded-lg shadow-lg"
+    >
+      Hover or Tap Me
+    </motion.button>
+  );
+};
+
+export default InteractiveButton;`
+  }} />
+</Step>
+
+<Step>
+## 6. AnimatePresence (for Exit Animations)
+
+To animate components when they are removed from the React tree (e.g., items removed from a list, route changes), wrap them with the `AnimatePresence` component.
+
+<CodeTabs lang="tsx" codes={{
+    'AnimatePresence Example': `import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const PresenceComponent = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  return (
+    <div className="space-y-4">
+      <button
+        onClick={() => setIsVisible(!isVisible)}
+        className="px-4 py-2 bg-red-500 text-white rounded"
+      >
+        {isVisible ? 'Hide' : 'Show'} Box
+      </button>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            key="box" // Important: Provide a unique key
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50, transition: { duration: 0.3 } }} // Define exit animation
+            className="w-24 h-24 bg-yellow-400 rounded"
+          />
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default PresenceComponent;`
+  }} />
+
+Make sure components inside `AnimatePresence` have a unique `key` prop.
+</Step>
+
+</Steps>

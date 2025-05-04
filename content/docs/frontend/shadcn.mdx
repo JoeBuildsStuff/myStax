@@ -14,7 +14,7 @@ This guide assumes you have a Next.js project set up with Tailwind CSS. If not, 
 ## TLDR
 
 <CodeTabs lang="bash" codes={{
-    bash: `pnpm dlx shadcn@latest init`,
+    bash: `pnpm dlx shadcn@latest init \npnpm dlx shadcn@latest add --all`,
   }} />
 
 <Steps>
@@ -24,7 +24,7 @@ This guide assumes you have a Next.js project set up with Tailwind CSS. If not, 
 Run the `shadcn/ui` init command in your project root. This will set up `components.json` and configure necessary styles and utilities.
 
 <CodeTabs lang="bash" codes={{
-    bash: `pnpm dlx shadcn-ui@latest init`,
+    bash: `pnpm dlx shadcn@latest init`,
   }} />
 
 You will be prompted to select a base color:
@@ -57,7 +57,7 @@ Add individual components as needed using the `add` command. You can add multipl
 
 <CodeTabs lang="bash" codes={{
     'Add Components': `pnpm dlx shadcn@latest add button card input`,
-    'Add All Components': `pnpm dlx shadcn-ui@latest add --all`,
+    'Add All Components': `pnpm dlx shadcn@latest add --all`,
   }} />
 
 This command downloads the source code for the requested components directly into your project, typically under `components/ui/`. You can then modify them as needed.
