@@ -8,6 +8,8 @@ import {
 import { notFound } from 'next/navigation';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getMDXComponents } from '@/mdx-components';
+import { getLLMText } from '@/lib/get-llm-text';
+import { CopyMarkdownButton } from '@/components/ui/copy-markdown-button';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -16,6 +18,8 @@ export default async function Page(props: {
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const markdownContent = await getLLMText(page);
+
   const MDXContent = page.data.body;
   return (
     <DocsPage
@@ -23,7 +27,11 @@ export default async function Page(props: {
       full={page.data.full}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+      <DocsDescription className="flex flex-col gap-5">
+        {page.data.description}
+        <CopyMarkdownButton markdownContent={markdownContent} />
+      </DocsDescription>
+      
       <DocsBody>
         <MDXContent
           components={getMDXComponents({
