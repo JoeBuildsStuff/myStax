@@ -13,6 +13,7 @@ import {
   type TabsProps,
 } from '@/components/animate-ui/components/tabs';
 import { CopyButton } from '@/components/animate-ui/buttons/copy';
+import { CodeTabsSkeleton } from './code-tabs-skeleton';
 
 type CodeTabsProps = {
   codes: Record<string, string>;
@@ -41,7 +42,7 @@ function CodeTabs({
   ...props
 }: CodeTabsProps) {
   const { resolvedTheme } = useTheme();
-
+  const [isLoading, setIsLoading] = React.useState(true);
   const [highlightedCodes, setHighlightedCodes] = React.useState<Record<
     string,
     string
@@ -51,6 +52,9 @@ function CodeTabs({
   );
 
   React.useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+
     async function loadHighlightedCode() {
       try {
         const { codeToHtml } = await import('shiki');
@@ -68,15 +72,28 @@ function CodeTabs({
 
           newHighlightedCodes[command] = highlighted;
         }
-
-        setHighlightedCodes(newHighlightedCodes);
+        if (isMounted) {
+          setHighlightedCodes(newHighlightedCodes);
+          setIsLoading(false);
+        }
       } catch (error) {
         console.error('Error highlighting codes', error);
-        setHighlightedCodes(codes);
+        if (isMounted) {
+          setHighlightedCodes(codes);
+          setIsLoading(false);
+        }
       }
     }
     loadHighlightedCode();
+
+    return () => {
+      isMounted = false;
+    };
   }, [resolvedTheme, lang, themes.light, themes.dark, codes]);
+
+  if (isLoading) {
+    return <CodeTabsSkeleton tabsCount={Object.keys(codes).length} className={className} />;
+  }
 
   return (
     <Tabs
