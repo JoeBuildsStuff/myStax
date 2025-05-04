@@ -1,0 +1,9 @@
+{
+  "title": "Frontend",
+  "pages": [
+    "nextjs",
+    "lucide-react",
+    "..."
+  ],
+  "defaultOpen": true
+} 
