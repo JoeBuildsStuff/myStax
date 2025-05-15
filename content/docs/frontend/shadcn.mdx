@@ -13,8 +13,11 @@ This guide assumes you have a Next.js project set up with Tailwind CSS. If not, 
 
 ## TLDR
 
-<CodeTabs lang="bash" codes={{
-    bash: `pnpm dlx shadcn@latest init \npnpm dlx shadcn@latest add --all`,
+<CodeTabs lang="bash"
+highlight="[2,3]"
+ codes={{
+    bash: `pnpm dlx shadcn@latest init
+  pnpm dlx shadcn@latest add --all`,
   }} />
 
 <Steps>
@@ -83,7 +86,7 @@ Create a theme provider component. This wraps your application and provides the 
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
+import { type ThemeProviderProps } from "next-themes"
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>

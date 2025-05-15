@@ -4,11 +4,13 @@ import { cn } from '@/lib/utils';
 interface CodeTabsSkeletonProps {
   tabsCount?: number;
   className?: string;
+  linesCount?: number;
 }
 
 export function CodeTabsSkeleton({
   tabsCount = 3,
   className,
+  linesCount = 1,
 }: CodeTabsSkeletonProps) {
   return (
     <div
@@ -27,7 +29,9 @@ export function CodeTabsSkeleton({
         <div className="h-6 w-6 bg-muted-foreground/20 rounded" />
       </div>
       <div className="p-4">
-        <div className="h-4 w-full bg-muted-foreground/20 rounded" />
+        {Array.from({ length: linesCount }).map((_, i) => (
+          <div key={i} className="h-4 w-full bg-muted-foreground/20 rounded" />
+        ))}
       </div>
     </div>
   );

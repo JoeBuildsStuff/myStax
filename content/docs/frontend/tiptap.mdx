@@ -1,0 +1,222 @@
+---
+title: Tiptap
+description: Guide to installing and configuring Tiptap rich text editor in a Next.js project using pnpm.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+More info on Tiptap can be found [here](https://tiptap.dev/docs).
+
+## TLDR
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm add @tiptap/react @tiptap/pm @tiptap/starter-kit`,
+  }} />
+
+<Steps>
+<Step>
+## 1. Prerequisites
+
+Ensure you have a Next.js project set up. If you don't have one yet, you can create it using:
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm create next-app my-tiptap-project --ts --eslint --tailwind --src-dir --app --use-pnpm`,
+  }} />
+
+For more details on setting up a Next.js project, refer to the [Next.js Setup Guide](/docs/nextjs).
+</Step>
+
+<Step>
+## 2. Install Dependencies
+
+Install the required Tiptap packages using pnpm:
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm add @tiptap/react @tiptap/pm @tiptap/starter-kit`,
+  }} />
+
+These packages provide:
+- `@tiptap/react`: React components for Tiptap
+- `@tiptap/pm`: ProseMirror core functionality
+- `@tiptap/starter-kit`: Common extensions for rich text editing
+</Step>
+
+<Step>
+## 3. Create Tiptap Component
+
+Create a new component for the Tiptap editor. Create a file at `components/Tiptap.tsx`:
+
+<CodeTabs lang="tsx" codes={{
+    'components/Tiptap.tsx': `'use client'
+
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+
+const Tiptap = () => {
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: '<p>Hello World! 🌎️</p>',
+  })
+
+  return <EditorContent editor={editor} />
+}
+
+export default Tiptap`,
+  }} />
+</Step>
+
+<Step>
+## 4. Integrate into Your App
+
+Add the Tiptap component to your page. Update your `app/page.tsx`:
+
+<CodeTabs lang="tsx" codes={{
+    'app/page.tsx': `import Tiptap from '@/components/Tiptap'
+
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <h1 className="text-4xl font-bold mb-8">Tiptap Editor</h1>
+      <div className="w-full max-w-2xl">
+        <Tiptap />
+      </div>
+    </main>
+  )
+}`,
+  }} />
+</Step>
+
+<Step>
+## 5. Configure Next.js for Yjs (Optional)
+
+Yjs is a high-performance CRDT (Conflict-free Replicated Data Type) library that enables real-time collaboration in applications. Tiptap can leverage Yjs to build collaborative text editing features, allowing multiple users to edit the same document simultaneously.
+
+If you plan to use Yjs with Tiptap for collaborative editing, you might encounter issues with duplicate Yjs imports in a Next.js environment. To prevent the error: `Yjs was already imported. This breaks constructor checks and will lead to issues!`, add the following configuration to your `next.config.mjs`:
+
+<CodeTabs lang="js" codes={{
+    'next.config.mjs': `import path from 'path'
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Ensure that all imports of 'yjs' resolve to the same instance
+      // This prevents issues caused by multiple Yjs instances in the client bundle.
+      config.resolve.alias['yjs'] = path.resolve(process.cwd(), 'node_modules/yjs')
+    }
+    return config
+  },
+}
+
+export default nextConfig`,
+  }} />
+
+This configuration ensures that all parts of your Next.js application (and its dependencies) use a single, consistent instance of the Yjs library, resolving potential conflicts and ensuring smooth operation of collaborative features.
+</Step>
+
+<Step>
+## 6. Installing and Using Extensions
+
+Tiptap is highly modular, and its functionality is primarily extended through various extensions. While the `@tiptap/starter-kit` package provides a great set of common extensions to get you started, you can install and use individual extensions for more specific needs.
+
+To install a comprehensive set of available extensions, you can run:
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm add \
+  @tiptap/extension-blockquote \
+  @tiptap/extension-bullet-list \
+  @tiptap/extension-code-block \
+  @tiptap/extension-code-block-lowlight \
+  @tiptap/extension-document \
+  @tiptap/extension-hard-break \
+  @tiptap/extension-heading \
+  @tiptap/extension-horizontal-rule \
+  @tiptap/extension-image \
+  @tiptap/extension-list-item \
+  @tiptap/extension-mention \
+  @tiptap/extension-ordered-list \
+  @tiptap/extension-paragraph \
+  @tiptap/extension-table \
+  @tiptap/extension-table-cell \
+  @tiptap/extension-table-header \
+  @tiptap/extension-table-row \
+  @tiptap/extension-task-item \
+  @tiptap/extension-task-list \
+  @tiptap/extension-text \
+  @tiptap/extension-youtube \
+  @tiptap/extension-bold \
+  @tiptap/extension-code \
+  @tiptap/extension-highlight \
+  @tiptap/extension-italic \
+  @tiptap/extension-link \
+  @tiptap/extension-strike \
+  @tiptap/extension-subscript \
+  @tiptap/extension-superscript \
+  @tiptap/extension-text-style \
+  @tiptap/extension-underline \
+  @tiptap/extension-bubble-menu \
+  @tiptap/extension-character-count \
+  @tiptap/extension-collaboration \
+  @tiptap/extension-collaboration-cursor \
+  @tiptap/extension-color \
+  @tiptap/extension-dropcursor \
+  @tiptap/extension-floating-menu \
+  @tiptap/extension-focus \
+  @tiptap/extension-font-family \
+  @tiptap/extension-gapcursor \
+  @tiptap/extension-list-keymap \
+  @tiptap/extension-placeholder \
+  @tiptap/starter-kit \
+  @tiptap/extension-text-align`,
+  }} />
+
+Note: The `@tiptap/extension` package itself is a placeholder or a very core package; specific extensions are usually in the format `@tiptap/extension-extension-name`.
+
+### Example: Adding Specific Extensions
+
+After installing, you can import and add them to your editor configuration. If you are using `StarterKit`, it already includes many of these. However, if you want a more minimal setup or need extensions not in `StarterKit`, you would add them like this:
+
+<CodeTabs lang="tsx" codes={{
+    'components/Tiptap.tsx (with more extensions)': `'use client'
+
+import { useEditor, EditorContent } from '@tiptap/react'
+import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import Bold from '@tiptap/extension-bold'
+import Italic from '@tiptap/extension-italic'
+import Link from '@tiptap/extension-link'
+import Placeholder from '@tiptap/extension-placeholder'
+// ... import other extensions you need
+
+const Tiptap = () => {
+  const editor = useEditor({
+    extensions: [
+      Document,
+      Paragraph,
+      Text,
+      Bold,
+      Italic,
+      Link.configure({
+        openOnClick: true,
+        autolink: true,
+      }),
+      Placeholder.configure({
+        placeholder: 'Write something amazing…',
+      })
+      // ... add other extensions here
+    ],
+    content: '<p>Hello World! Add some <strong>bold</strong> and <em>italic</em> text, or a <a href="https://tiptap.dev">link</a>.</p>',
+  })
+
+  return <EditorContent editor={editor} />
+}
+
+export default Tiptap`,
+  }} />
+
+For a full list of available extensions and their specific configurations, refer to the [official Tiptap extensions documentation](https://tiptap.dev/docs/editor/extensions).
+</Step>
+</Steps> 

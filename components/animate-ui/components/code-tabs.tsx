@@ -58,6 +58,9 @@ function CodeTabs({
     async function loadHighlightedCode() {
       try {
         const { codeToHtml } = await import('shiki');
+        const { transformerNotationHighlight } = await import(
+          '@shikijs/transformers'
+        );
         const newHighlightedCodes: Record<string, string> = {};
 
         for (const [command, val] of Object.entries(codes)) {
@@ -68,6 +71,7 @@ function CodeTabs({
               dark: themes.dark,
             },
             defaultColor: resolvedTheme === 'dark' ? 'dark' : 'light',
+            transformers: [transformerNotationHighlight()],
           });
 
           newHighlightedCodes[command] = highlighted;
