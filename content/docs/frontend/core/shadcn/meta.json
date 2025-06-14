@@ -1,0 +1,9 @@
+{
+  "title": "shadcn/ui",
+  "pages": [
+    "index",
+    "sidebar-setup",
+    "..."
+  ],
+  "defaultOpen": true
+}
