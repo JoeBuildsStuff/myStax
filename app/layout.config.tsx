@@ -8,6 +8,14 @@ import { Layers } from 'lucide-react';
  * Docs Layout: app/docs/layout.tsx
  */
 export const baseOptions: BaseLayoutProps = {
+  githubUrl: 'https://github.com/JoeBuildsStuff/myStax',
+  links: [
+    {
+      text: 'Docs',
+      url: '/docs',
+      active: 'nested-url',
+    },
+  ],
   nav: {
     title: (
       <>

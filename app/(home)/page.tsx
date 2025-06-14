@@ -1,5 +1,4 @@
 import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
-import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -11,15 +10,6 @@ export default function HomePage() {
     Shadcn: `pnpm dlx shadcn@latest init`,
   }} />
 </div>
-      <p className="text-fd-muted-foreground">
-
-        <Link
-          href="/docs"
-          className="text-fd-foreground font-semibold underline"
-        >
-          /docs
-        </Link>
-      </p>
     </main>
   );
 }

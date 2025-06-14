@@ -9,7 +9,9 @@ import { notFound } from 'next/navigation';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getMDXComponents } from '@/mdx-components';
 import { getLLMText } from '@/lib/get-llm-text';
-import { CopyMarkdownButton } from '@/components/ui/copy-markdown-button';
+import { CopyMarkdownButton } from '@/components/copy-markdown-button';
+import { EditOnGithubButton } from '@/components/edit-on-github-button';
+
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -28,8 +30,13 @@ export default async function Page(props: {
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="flex flex-col gap-5">
-        {page.data.description}
-        <CopyMarkdownButton markdownContent={markdownContent} />
+      {page.data.description}
+        <div className="flex flex-row gap-2 justify-start">
+          <CopyMarkdownButton markdownContent={markdownContent} />
+          <EditOnGithubButton
+          filePath={page.file.path}
+          repository="JoeBuildsStuff/myStax/tree/main/content/docs"/>
+        </div>
       </DocsDescription>
       
       <DocsBody>
