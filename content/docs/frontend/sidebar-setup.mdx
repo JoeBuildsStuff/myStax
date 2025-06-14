@@ -38,7 +38,7 @@ This component displays the application logo and name within the sidebar.
 Create a file at `src/components/app-sidebar-logo.tsx`:
 
 <CodeTabs lang="tsx" codes={{
-    'src/components/app-sidebar-logo.tsx': `\'\'\'"use client"
+    'src/components/app-sidebar-logo.tsx': `"use client"
 
 import * as React from "react"
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar" // Ensure these paths are correct
@@ -63,7 +63,7 @@ export function SidebarLogo() {
       </SidebarMenuItem>
     </SidebarMenu>
   )
-}\'\'\'`
+}`
   }} />
 </Step>
 
@@ -75,7 +75,7 @@ This component defines the structure and navigation links for the sidebar. It us
 Create a file at `src/components/app-sidebar.tsx`:
 
 <CodeTabs lang="tsx" codes={{
-    'src/components/app-sidebar.tsx': `\'\'\'"use client"
+    'src/components/app-sidebar.tsx': `"use client"
 
 import {
     Sidebar,
@@ -163,7 +163,7 @@ const items = [
         </SidebarFooter>
       </Sidebar>
     )
-  }\'\'\'`
+  }`
   }} />
 
 Make sure the import path for `cn` (e.g., ` "@/lib/utils"`) and the sidebar UI components are correct for your project structure.
@@ -177,7 +177,7 @@ The sidebar might rely on a context provider for its state (e.g., collapsed/expa
 Update `src/components/providers.tsx` (or your equivalent providers file):
 
 <CodeTabs lang="tsx" codes={{
-    'src/components/providers.tsx': `\'\'\'// app/components/Providers.tsx (or your equivalent)
+    'src/components/providers.tsx': `// app/components/Providers.tsx (or your equivalent)
 'use client'
 
 import { ReactNode, useState } from 'react'
@@ -204,7 +204,7 @@ export function Providers({ children }: { children: ReactNode }) {
       </ThemeProvider>
     </QueryClientProvider>
   )
-}\'\'\'`
+}`
   }} />
 If `SidebarProvider` is not already part of your `@/components/ui/sidebar` components, you will need to create or obtain it. It typically manages the sidebar's state.
 </Step>
@@ -217,7 +217,7 @@ Finally, add the `<AppSidebar />` component to your root layout to make it appea
 Update `src/app/layout.tsx`:
 
 <CodeTabs lang="tsx" codes={{
-    'src/app/layout.tsx': `\'\'\'import type { Metadata } from "next";
+    'src/app/layout.tsx': `import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google"; // Or your preferred font
 import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar"; // <--- Import AppSidebar
@@ -279,7 +279,7 @@ export default function RootLayout({
       </body>
     </html>
   );
-}\'\'\'`
+}`
   }} />
 Ensure the class names used for `main` and `header` (e.g., `group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12`) correctly correspond to how your `SidebarProvider` or `Sidebar` component handles collapsed states.
 </Step>

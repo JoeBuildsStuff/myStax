@@ -1,0 +1,9 @@
+{
+  "title": "Backend",
+  "icon": "Server",
+  "pages": [
+    "supabase",
+    "..."
+  ],
+  "defaultOpen": true
+} 
