@@ -10,7 +10,8 @@ import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getMDXComponents } from '@/mdx-components';
 import { getLLMText } from '@/lib/get-llm-text';
 import { CopyMarkdownButton } from '@/components/copy-markdown-button';
-import { EditOnGithubButton } from '@/components/edit-on-github-button';
+import { EditOnGithubButton } from '@/components/view-on-github-button';
+import { ReportIssueButton } from '@/components/report-issue-button';
 
 
 export default async function Page(props: {
@@ -34,8 +35,13 @@ export default async function Page(props: {
         <div className="flex flex-row gap-2 justify-start">
           <CopyMarkdownButton markdownContent={markdownContent} />
           <EditOnGithubButton
-          filePath={page.file.path}
-          repository="JoeBuildsStuff/myStax/tree/main/content/docs"/>
+            filePath={page.file.path}
+            repository="JoeBuildsStuff/myStax/tree/main/content/docs"
+          />
+          <ReportIssueButton
+            filePath={page.file.path}
+            repository="JoeBuildsStuff/myStax"
+          />
         </div>
       </DocsDescription>
       
