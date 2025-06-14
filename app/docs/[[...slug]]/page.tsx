@@ -12,7 +12,7 @@ import { getLLMText } from '@/lib/get-llm-text';
 import { CopyMarkdownButton } from '@/components/copy-markdown-button';
 import { EditOnGithubButton } from '@/components/view-on-github-button';
 import { ReportIssueButton } from '@/components/report-issue-button';
-
+import { getGithubLastEdit } from 'fumadocs-core/server';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -21,13 +21,23 @@ export default async function Page(props: {
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const time = await getGithubLastEdit({
+    owner: 'JoeBuildsStuff',
+    repo: 'myStax',
+    path: `content/docs/${page.file.path}`,
+  });
+
   const markdownContent = await getLLMText(page);
 
   const MDXContent = page.data.body;
   return (
     <DocsPage
+      tableOfContent={{
+        style: 'clerk',
+      }}
       toc={page.data.toc}
       full={page.data.full}
+      lastUpdate={time ? new Date(time) : undefined}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="flex flex-col gap-5">
