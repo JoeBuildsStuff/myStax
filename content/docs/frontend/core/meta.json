@@ -1,0 +1,10 @@
+{
+  "title": "Core",
+  "pages": [
+    "nextjs",
+    "shadcn",
+    "lucide",
+    "..."
+  ],
+  "defaultOpen": true
+}

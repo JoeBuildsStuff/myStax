@@ -2,12 +2,9 @@
   "title": "Frontend",
   "icon": "MonitorSmartphone",
   "pages": [
-    "nextjs",
-    "shadcn",
-    "lucide",
-    "motion",
-    "tiptap",
+    "core",
+    "optional",
     "..."
   ],
   "defaultOpen": true
-} 
+}
