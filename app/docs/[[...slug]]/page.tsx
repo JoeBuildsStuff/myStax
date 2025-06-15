@@ -42,7 +42,7 @@ export default async function Page(props: {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="flex flex-col gap-5">
       {page.data.description}
-        <div className="flex flex-row gap-2 justify-start">
+        <div className="flex flex-col md:flex-row gap-2 justify-start">
           <CopyMarkdownButton markdownContent={markdownContent} />
           <EditOnGithubButton
             filePath={page.file.path}
