@@ -101,8 +101,8 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 
 Wrap your root layout (`app/layout.tsx` or `src/app/layout.tsx`) with the `ThemeProvider`.
 
-<CodeTabs lang="tsx" codes={{
-    'app/layout.tsx': `import type { Metadata } from "next";
+```tsx lineNumbers title="app/layout.tsx"
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -130,8 +130,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <body className={cn(
+          geistSans.variable,
+          geistMono.variable,
+          "antialiased"
+        )}
       >
         <ThemeProvider
             attribute="class"
@@ -145,8 +148,7 @@ export default function RootLayout({
     </html>
   );
 }
-`,
-  }} />
+```
 
 
 ### 3d. Create Mode Toggle Button
