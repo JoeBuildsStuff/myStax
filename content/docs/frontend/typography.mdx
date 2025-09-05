@@ -1,0 +1,55 @@
+---
+title: Tailwind Typography
+description: Guide to installing and using the Tailwind CSS Typography plugin.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { CodeTabs } from '@/components/animate-ui/components/code-tabs';
+
+More information on the Tailwind CSS Typography plugin is available on the [official repository](https://github.com/tailwindlabs/tailwindcss-typography) and the [demo site](https://tailwindcss-typography.vercel.app/).
+
+## TLDR
+
+<CodeTabs lang="bash" codes={{
+    bash: `pnpm add -D @tailwindcss/typography`,
+  }} />
+
+<Steps>
+<Step>
+## 1. Installation
+
+Install `@tailwindcss/typography` using your preferred package manager.
+
+<CodeTabs lang="bash" codes={{
+    pnpm: `pnpm add -D @tailwindcss/typography`,
+    yarn: `yarn add -D @tailwindcss/typography`,
+    npm: `npm install -D @tailwindcss/typography`,
+    bun: `bun add -d @tailwindcss/typography`,
+  }} />
+</Step>
+
+<Step>
+## 2. Configure plugin
+
+Add the plugin directive to your global CSS file.
+
+<CodeTabs lang="css" codes={{
+    css: `@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";`,
+  }} />
+</Step>
+
+<Step>
+## 3. Basic usage
+
+Use the `prose` classes to style generated HTML content.
+
+<CodeTabs lang="html" codes={{
+    html: `<article class="prose lg:prose-xl">
+  <h1>Garlic bread with cheese: What the science tells us</h1>
+  <p>For years parents have espoused the health benefits of eating garlic bread with cheese to their children...</p>
+</article>`,
+  }} />
+</Step>
+</Steps>
